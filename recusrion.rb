@@ -132,22 +132,19 @@ end
 # p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
 
 def merge(left_side, right_side)
-    # return left_side if right_side.empty?
-    # return right_side if left_side.empty?
-
     new_arr = []
-    while left_side.length && right_side.length
-        if left_side[0] <= right_side[0]
+    while !left_side.empty? && !right_side.empty?
+        if left_side[0] < right_side[0]
             new_arr << left_side.shift
         else
             new_arr << right_side.shift
         end
     end
-    new_arr.concat(left_side, right_side)
+    new_arr + left_side + right_side
 end
 
 def merge_sort(array)
-    return array if array.length == 1
+    return array if array.length <= 1
     mid = array.length / 2
     left_side = merge_sort(array[0...mid])
     right_side = merge_sort(array[mid..-1])
@@ -155,3 +152,22 @@ def merge_sort(array)
 end
 
 p merge_sort([3,5,1,9,7,8])
+
+def subsets(arr)
+    return [[]] if arr.empty?
+    return [[],[1]] if arr.length == 1
+
+    arr = []
+    i = 0 
+    while i < arr.length
+
+
+        i += 1
+    end
+end
+
+def permutations(arr)
+    return [arr] if arr.length <= 1
+
+    
+end
