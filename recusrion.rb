@@ -108,20 +108,50 @@ def bsearch(array, target)
     left_arr = array[0...mid]
     right_arr = array[mid+1..-1]
 
-    if mid == target
+    if array[mid] == target
         return mid
-    elsif target < mid
+    elsif target < array[mid]
         bsearch(left_arr,target)
     else
         res = bsearch(right_arr,target)
-        return res == nil ? nil : res + mid + 1
+        if res == nil
+            return nil
+        else
+            return res + mid + 1
+        end
+        # return res == nil ? nil : res + mid + 1
     end
 end
 
-p bsearch([1, 2, 3], 1) # => 0
-p bsearch([2, 3, 4, 5], 3) # => 1
-p bsearch([2, 4, 6, 8, 10], 6) # => 2
-p bsearch([1, 3, 4, 5, 9], 5) # => 3
-p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
-p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
+def merge(left_side, right_side)
+    # return left_side if right_side.empty?
+    # return right_side if left_side.empty?
+
+    new_arr = []
+    while left_side.length && right_side.length
+        if left_side[0] <= right_side[0]
+            new_arr << left_side.shift
+        else
+            new_arr << right_side.shift
+        end
+    end
+    new_arr.concat(left_side, right_side)
+end
+
+def merge_sort(array)
+    return array if array.length == 1
+    mid = array.length / 2
+    left_side = merge_sort(array[0...mid])
+    right_side = merge_sort(array[mid..-1])
+    merge(left_side, right_side)
+end
+
+p merge_sort([3,5,1,9,7,8])
