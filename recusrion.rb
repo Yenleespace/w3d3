@@ -80,13 +80,48 @@ end
 # p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
 
 def rec_fibonacci(n)
-    return 0 if n == 1
-    return 1 if n == 2
-    prev_fib = rec_fibonacci(n - 1)
-    prev_fib = prev_fib[-2] + prev_fib[-1]
+    return [] if n == 0
+    return [0] if n == 1
+    return [0,1] if n == 2
+
+    rec_fibonacci(n-1) << rec_fibonacci(n-1)[-2] + rec_fibonacci(n-1)[-1]
 end
 
 def iter_fibonacci(n)
+    return [] if n == 0
+    return [0] if n == 1
+
+    arr = [0,1]
+
+    while arr.length < n
+        arr << arr[-2] + arr[-1]
+    end
+    return arr
 end
 
-p rec_fibonacci(3)
+# p rec_fibonacci(7)
+# p iter_fibonacci(7)
+
+def bsearch(array, target)
+    return nil if array.length == 0
+    mid = array.length/2
+    left_arr = array[0...mid]
+    right_arr = array[mid+1..-1]
+
+    if mid == target
+        return mid
+    elsif target < mid
+        bsearch(left_arr,target)
+    else
+        res = bsearch(right_arr,target)
+        return res == nil ? nil : res + mid + 1
+    end
+end
+
+p bsearch([1, 2, 3], 1) # => 0
+p bsearch([2, 3, 4, 5], 3) # => 1
+p bsearch([2, 4, 6, 8, 10], 6) # => 2
+p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
