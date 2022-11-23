@@ -1,3 +1,5 @@
+require 'byebug'
+
 #Warm up
 
 def range (start_num, end_num)
@@ -68,16 +70,16 @@ class Array
     end 
 end
 
-# robot_parts = [
-#     ["nuts", "bolts", "washers"],
-#     ["capacitors", "resistors", "inductors"]
-# ]
+robot_parts = [
+    ["nuts", "bolts", "washers"],
+    ["capacitors", "resistors", "inductors"]
+]
 
-# robot_parts_copy = robot_parts.deep_dup
+robot_parts_copy = robot_parts.deep_dup
 
-# robot_parts_copy[1] << "LEDs"
-# # but it does
-# p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
+robot_parts_copy[1] << "LEDs"
+# but it does
+p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
 
 def rec_fibonacci(n)
     return [] if n == 0
@@ -151,23 +153,25 @@ def merge_sort(array)
     merge(left_side, right_side)
 end
 
-p merge_sort([3,5,1,9,7,8])
+# p merge_sort([3,5,1,9,7,8])
 
-def subsets(arr)
-    return [[]] if arr.empty?
-    return [[],[1]] if arr.length == 1
+def subsets(array)
+    # debugger
+    return [[]] if array.empty?
 
-    arr = []
-    i = 0 
-    while i < arr.length
-
-
-        i += 1
-    end
+    landing_pad = subsets(array[0...-1]) # array[1]
+    p landing_pad
+    landing_pad += landing_pad.map {|ele| ele + [array[-1]]} array
 end
 
+# p subsets([]) # => [[]]
+# p subsets([1]) # => [[], [1]]
+p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+# p subsets([1, 2, 3])
+# # => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+
 def permutations(arr)
-    return [arr] if arr.length <= 1
+    # return [arr] if arr.length <= 1
 
     
 end
