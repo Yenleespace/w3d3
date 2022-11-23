@@ -51,8 +51,42 @@ def exp(base, num) # num
     end
 end
 
-p exp(2, 3)
-p exp(2, 5)
-p exp(2, 0)
+# p exp(2, 3)
+# p exp(2, 5)
+# p exp(2, 0)
+class Array
+    def deep_dup
+        arr = []
+        self.each do |ele|
+            if ele.is_a?(Array)
+                arr << ele.deep_dup
+            else
+                arr << ele
+            end
+        end
+        arr
+    end 
+end
 
-def dee
+# robot_parts = [
+#     ["nuts", "bolts", "washers"],
+#     ["capacitors", "resistors", "inductors"]
+# ]
+
+# robot_parts_copy = robot_parts.deep_dup
+
+# robot_parts_copy[1] << "LEDs"
+# # but it does
+# p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
+
+def rec_fibonacci(n)
+    return 0 if n == 1
+    return 1 if n == 2
+    prev_fib = rec_fibonacci(n - 1)
+    prev_fib = prev_fib[-2] + prev_fib[-1]
+end
+
+def iter_fibonacci(n)
+end
+
+p rec_fibonacci(3)
